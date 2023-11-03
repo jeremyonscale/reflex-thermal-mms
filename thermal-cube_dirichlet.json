@@ -1,0 +1,61 @@
+{
+    "mesh_filename": "$m$",
+    "element_order": "$o$",
+    "element_order_output": "$o$",
+    "element_integration": "$i$",   
+
+    "physics": [
+        {
+            "physics_type": "Thermal",
+            "boundary_conditions": [
+                {
+                    "boundary_condition_type": "Dirichlet",
+                    "group_names": [ "left", "right", "bottom", "top", "front", "back" ],
+                    "values": [ "$T$" ]
+                },
+                {
+                    "boundary_condition_type": "ThermalPowerDensity",
+                    "group_names":[ "bulk" ],
+                    "values": [ "$q" ]
+                },
+                
+            ],
+            "solver_name": "lu"
+        }
+    ],
+    
+    "materials": [
+        {
+            "name": "bulk",
+            "thermal_properties": {
+                "thermal_conductivity": {
+                    "thermal_conductivity": "$k$"
+                },
+                "thermal_conductivity_type": "IsotropicFourier",
+            }
+        }
+    ],
+    "material_mapping": [
+        {
+            "volume_name": "bulk",
+            "material_name": "bulk"
+        }
+    ],
+    
+    "outputs": {
+        "field_data": [
+            {
+                "field_name": "Temperature"
+            }
+        ]
+    },
+    "analysis_type": "StaticAnalysis",
+    "analysis": {},
+    "solver": [
+      {
+        "solver_name": "lu",
+        "solver_type": "preonly",
+        "preconditioner_type": "lu"
+      }
+    ]
+}

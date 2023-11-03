@@ -1,0 +1,69 @@
+{
+    "mesh_filename": "$m$",
+    "element_order": "$o$",
+    "element_order_output": "$o$",
+    "element_integration": "$i$",
+    "functions": [
+        {
+            "function_name": "T_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$T$"
+            }
+        },
+        {
+            "function_name": "q_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$q$"
+            }
+        }
+    ],    
+
+    "physics": [
+        {
+            "physics_type": "Thermal",
+            "boundary_conditions": [
+                {
+                    "group_names": [ "left", "right", "bottom", "top" ],
+                    "boundary_condition_type": "Dirichlet",
+                    "values": [ "T_mms(x,y)" ]
+                },{
+                    "group_names":[ "bulk" ],
+                    "boundary_condition_type": "ThermalPowerDensity",
+                    "values": [ "q_mms(x,y)" ]
+                },
+            ]
+        }
+    ],
+
+    "materials": [
+        {
+            "name": "bulk",
+            "thermal_properties": {
+                "thermal_conductivity_type": "IsotropicFourier",
+                "thermal_conductivity": {
+                    "thermal_conductivity": "$k$"
+                },
+            }
+        }
+    ],
+    
+    "material_mapping": [
+        {
+            "volume_name": "bulk",
+            "material_name": "bulk"
+        }
+    ],
+    "outputs": {
+        "field_data": [
+            {
+                "field_name": "Temperature"
+            }
+        ]
+    },
+    "analysis_type": "StaticAnalysis",
+    "analysis": {}
+}

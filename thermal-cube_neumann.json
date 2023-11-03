@@ -1,0 +1,110 @@
+{
+    "mesh_filename": "$m$",
+    "element_order": "$o$",
+    "element_order_output": "$o$",
+    "element_integration": "$i$",
+
+    "functions": [
+        {
+            "function_name": "T_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y", "z" ],
+                "expression": "$T$"
+            }
+        },{
+            "function_name": "qx",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y", "z" ],
+                "expression": "$qx$"
+            }
+        },{
+            "function_name": "qy",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y", "z" ],
+                "expression": "$qy$"
+            }
+        },{
+            "function_name": "qz",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y", "z" ],
+                "expression": "$qz$"
+            }
+        },{
+            "function_name": "q_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y", "z" ],
+                "expression": "$q"
+            }
+        }
+    ],    
+
+    "physics": [
+        {
+            "physics_type": "Thermal",
+            "boundary_conditions": [
+                {
+                    "boundary_condition_type": "Dirichlet",
+                    "group_names": [ "left", "top", "back" ],
+                    "values": [ "T_mms(x,y,z)" ]
+                },{
+                    "boundary_condition_type": "HeatFlux",
+                    "group_names": [ "bottom" ],
+                    "values": [ "+qy(x,y,z)" ]
+                },{
+                    "boundary_condition_type": "HeatFlux",
+                    "group_names": [ "right" ],
+                    "values": [ "-qx(x,y,z)" ]
+                },{
+                    "boundary_condition_type": "HeatFlux",
+                    "group_names": [ "front" ],
+                  "values": [ "-qz(x,y,z)" ]
+                },{
+                    "boundary_condition_type": "ThermalPowerDensity",
+                    "group_names":[ "bulk" ],
+                    "values": [ "q_mms(x,y,z)" ]
+                },
+            ],
+            "solver_name": "lu"
+        }
+    ],
+    
+    "materials": [
+        {
+            "name": "bulk",
+            "thermal_properties": {
+                "thermal_conductivity": {
+                    "thermal_conductivity": "$k$"
+                },
+                "thermal_conductivity_type": "IsotropicFourier",
+            }
+        }
+    ],
+    "material_mapping": [
+        {
+            "volume_name": "bulk",
+            "material_name": "bulk"
+        }
+    ],
+    
+    "outputs": {
+        "field_data": [
+            {
+                "field_name": "Temperature"
+            }
+        ]
+    },
+    "analysis_type": "StaticAnalysis",
+    "analysis": {},
+    "solver": [
+      {
+        "solver_name": "lu",
+        "solver_type": "preonly",
+        "preconditioner_type": "lu"
+      }
+    ]
+}

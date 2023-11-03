@@ -1,0 +1,23 @@
+VAR log_a_inf b_inf
+fitted_log_e_inf(log_h) := log_a_inf + b_inf*log_h
+FUNCTION log_e_inf(log_h) FILE $1.dat COLUMNS 4 5
+
+# VAR log_a_1 b_1
+# fitted_log_e_1(log_h) := log_a_1 + b_1*log_h
+# FUNCTION log_e_1(log_h)   FILE_PATH $1.dat COLUMNS 4 6
+
+VAR log_a_2 b_2
+fitted_log_e_2(log_h) := log_a_2 + b_2*log_h
+FUNCTION log_e_2(log_h)   FILE $1.dat COLUMNS 4 6
+
+FIT fitted_log_e_inf TO log_e_inf VIA log_a_inf b_inf #GRADIENT 1 log_h VERBOSE
+FIT fitted_log_e_2   TO log_e_2   VIA log_a_2   b_2   #GRADIENT 1 log_h VERBOSE
+
+PRINT SEP " " "e_2_$1(x) = "   exp(log_a_2)   "* x **" b_2
+PRINT SEP " " "e_2_$1_title = \"" "\$" %.1f exp(log_a_2) "\\cdot h^\{" %.2f b_2 " \\pm " sigma_b_2 "\}\$\"
+
+# PRINT SEP " " "e_1_$1(x) = "   exp(log_a_1)   "* x **" b_1
+# PRINT SEP " " "e_1_$1_title = \"" "\$" %.1f exp(log_a_1) "\\cdot h^\{" %.2f b_1 " \\pm " sigma_b_1 "\}\$\"
+
+PRINT SEP " " "e_inf_$1(x) = " exp(log_a_inf) "* x **" b_inf
+PRINT SEP " " "e_inf_$1_title = \"" "\$" %.1f exp(log_a_inf) "\\cdot h^\{" %.2f b_inf " \\pm " sigma_b_inf "\}\$\"

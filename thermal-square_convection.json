@@ -1,0 +1,105 @@
+{
+    "mesh_filename": "$m$",
+    "element_order": "$o$",
+    "element_order_output": "$o$",
+
+    "functions": [
+        {
+            "function_name": "T_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$T$"
+            }
+        },
+        {
+            "function_name": "dTdx",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$dTdx$"
+            }
+        },
+        {
+            "function_name": "dTdy",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$dTdy$"
+            }
+        },
+        {
+            "function_name": "q_mms",
+            "function_type": "Expression",
+            "function": {
+                "arguments": [ "x", "y" ],
+                "expression": "$q$"
+            }
+        }
+    ],    
+
+    "physics": [
+        {
+            "physics_type": "Thermal",
+            "boundary_conditions": [
+                {
+                    "group_names": [ "left", "top" ],
+                    "boundary_condition_type": "Dirichlet",
+                    "value_type": "ExpressionValues",
+                    "value": { "values": [ "T_mms(x,y)" ] }
+                },{
+                    "group_names": [ "bottom" ],
+                    "boundary_condition_type": "HeatFlux",
+                    "value_type": "ExpressionValues",
+                    "value": { "values": [ "-dTdy(x,y)" ] }
+                },{
+                    "group_names": [ "right" ],
+                    "boundary_condition_type": "Convection",
+                    "boundary_condition": {
+                        "heat_transfer_coefficient": {
+                            "value_type": "ExpressionValues",
+                            "value": { "values": [ "-dTdx(x,y)/(T-3)" ] }
+                        },
+                        "T_infinity": {
+                            "value_type": "ConstantValues",
+                            "value": { "values": [ 3 ] }
+                        }
+                    },
+                },{
+                    "group_names":[ "bulk" ],
+                    "boundary_condition_type": "ThermalPowerDensity",
+                    "value_type": "ExpressionValues",
+                    "value": { "values": [ "q_mms(x,y)" ] }
+                },
+            ]
+        }
+    ],
+
+    "materials": [
+        {
+            "name": "bulk",
+            "thermal_properties": {
+                "thermal_conductivity_type": "IsotropicFourier",
+                "thermal_conductivity": {
+                    "thermal_conductivity": "1"
+                },
+            }
+        }
+    ],
+    
+    "material_mapping": [
+        {
+            "volume_name": "bulk",
+            "material_name": "bulk"
+        }
+    ],
+    "outputs": {
+        "field_data": [
+            {
+                "field_name": "Temperature"
+            }
+        ]
+    },
+    "analysis_type": "StaticAnalysis",
+    "analysis": {}
+}

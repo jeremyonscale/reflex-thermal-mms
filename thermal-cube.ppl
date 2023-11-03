@@ -1,0 +1,91 @@
+set preamble "\usepackage{amsmath}"
+
+set width 18*unit(cm)
+set size ratio 9.0/16.0
+
+set axis x arrow nomirrored
+set axis y arrow nomirrored
+
+set grid
+set terminal pdf
+
+set logscale x
+set logscale y
+
+set xlabel "element size~$h$"
+
+# set xrange [0.008:0.1]
+# set yrange [1e-6:0.2]
+
+set key above
+
+set keycolumns 2
+
+load "thermal-cube-fits.ppl"
+# 
+# set ylabel "$e_\infty = \max \Big| T(x,y,z)-T_\text{mms}(x,y,z) \Big|$"
+# set title "Reflex---Cube $k$--$e_\infty$"
+# set output "thermal-cube-einf.pdf"
+# load "thermal-cube-einf.ppl"
+
+# set ylabel "$e_2 = \sqrt{\int \left[T(x,y,z)-T_\text{mms}(x,y,z)\right]^2 \, dx \, dy \, dz}$"
+# set title "Reflex---Cube $k$--$e_2$"
+# set output "thermal-cube-e2.pdf"
+# load "thermal-cube-e2.ppl"
+
+
+set keycolumns 3
+# set ylabel "$e_\infty = \max \Big| T(x,y,z)-T_\text{mms}(x,y,z) \Big|$"
+
+# set title "Reflex---Cube $k$--Dirichlet--Full--$e_\infty$"
+# set output "thermal-cube-dirichlet-full-einf.pdf"
+# load "thermal-cube-dirichlet-full-einf.ppl"
+# 
+# set title "Reflex---Cube $k$--Dirichlet--Reduced--$e_\infty$"
+# set output "thermal-cube-dirichlet-reduced-einf.pdf"
+# load "thermal-cube-dirichlet-reduced-einf.ppl"
+# 
+# set title "Reflex---Cube $k$--Dirichlet--Extended--$e_\infty$"
+# set output "thermal-cube-dirichlet-extended-einf.pdf"
+# load "thermal-cube-dirichlet-extended-einf.ppl"
+# 
+# set title "Reflex---Cube $k$--Neumann--Full--$e_\infty$"
+# set output "thermal-cube-neumann-full-einf.pdf"
+# load "thermal-cube-neumann-full-einf.ppl"
+# 
+# set title "Reflex---Cube $k$--Neumann--Reduced--$e_\infty$"
+# set output "thermal-cube-neumann-reduced-einf.pdf"
+# load "thermal-cube-neumann-reduced-einf.ppl"
+# 
+# set title "Reflex---Cube $k$--Neumann--Extended--$e_\infty$"
+# set output "thermal-cube-neumann-extended-einf.pdf"
+# load "thermal-cube-neumann-extended-einf.ppl"
+# 
+
+set ylabel "$e_2 = \sqrt{\int \left[T(x,y,z)-T_\text{mms}(x,y,z)\right]^2 \, dx \, dy \, dz}$"
+
+# set title "Reflex---Cube $k$--Dirichlet--Full--$e_2$"
+# set output "thermal-cube-dirichlet-full-e2.pdf"
+# load "thermal-cube-dirichlet-full-e2.ppl"
+# 
+# set title "Reflex---Cube $k$--Dirichlet--Reduced--$e_2$"
+# set output "thermal-cube-dirichlet-reduced-e2.pdf"
+# load "thermal-cube-dirichlet-reduced-e2.ppl"
+# 
+# set title "Reflex---Cube $k$--Dirichlet--Extended--$e_2$"
+# set output "thermal-cube-dirichlet-extended-e2.pdf"
+# load "thermal-cube-dirichlet-extended-e2.ppl"
+# 
+# set title "Reflex---Cube $k$--Neumann--Full--$e_2$"
+# set output "thermal-cube-neumann-full-e2.pdf"
+# load "thermal-cube-neumann-full-e2.ppl"
+# 
+# set title "Reflex---Cube $k$--Neumann--Reduced--$e_2$"
+# set output "thermal-cube-neumann-reduced-e2.pdf"
+# load "thermal-cube-neumann-reduced-e2.ppl"
+
+set title "Reflex---Cube $k$--Neumann--Extended--$e_2$"
+set output "thermal-cube-neumann-extended-e2.pdf"
+load "thermal-cube-neumann-extended-e2.ppl"
+
+
